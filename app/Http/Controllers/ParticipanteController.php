@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
+use App\Models\Participante;
 use App\Http\Requests\StoreParticipanteRequest;
 use App\Http\Requests\UpdateParticipanteRequest;
-use App\Models\Participante;
 
 class ParticipanteController extends Controller
 {
@@ -15,7 +17,11 @@ class ParticipanteController extends Controller
      */
     public function index()
     {
-        //
+        $participantes = Participante::all();
+
+        return view('participantes.index', [
+            'participantes' => $participantes
+        ]);
     }
 
     /**
@@ -25,18 +31,28 @@ class ParticipanteController extends Controller
      */
     public function create()
     {
-        //
+        return view('participantes.criar');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreParticipanteRequest  $request
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(StoreParticipanteRequest $request)
     {
-        //
+        $validated = $request->validated();
+        
+        $participante = new Participante($request->all());
+            
+        if($participante->save()) {
+            Session::flash('participante_success', 'Participante cadastrado com sucesso!');
+            return redirect()->back();
+        } else {
+            Session::flash('participante_error', 'Error ao cadastrar participante!');
+            return redirect()->back();
+        }  
     }
 
     /**

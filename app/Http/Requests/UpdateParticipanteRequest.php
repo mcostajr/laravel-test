@@ -13,7 +13,7 @@ class UpdateParticipanteRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,10 @@ class UpdateParticipanteRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'nome' => ['required', 'max:100'],
+            'sobrenome'  => ['required', 'max:100'],
+            'data_nascimento'  => ['required'],
+            'email'  => ['required', 'unique:participantes', 'max:100', 'email']
         ];
     }
 }

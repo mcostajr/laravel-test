@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ParticipanteController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,3 +17,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('painel/inscritos', [ParticipanteController::class, 'index'])
+    ->name('participantes.index');
+Route::get('cadastro/participantes', [ParticipanteController::class, 'create'])
+    ->name('participantes.criar');
+Route::post('cadastro/participantes', [ParticipanteController::class, 'store']);

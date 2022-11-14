@@ -13,7 +13,7 @@ class StoreParticipanteRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,10 @@ class StoreParticipanteRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'nome' => ['required', 'min:3', 'max:100'],
+            'sobrenome'  => ['required', 'min:3', 'max:100'],
+            'data_nascimento'  => ['required', 'date', 'before:tomorrow'],
+            'email'  => ['required', 'unique:participantes', 'max:100', 'email']
         ];
     }
 }

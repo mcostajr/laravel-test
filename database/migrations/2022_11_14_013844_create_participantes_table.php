@@ -15,6 +15,11 @@ return new class extends Migration
     {
         Schema::create('participantes', function (Blueprint $table) {
             $table->id();
+            $table->string('nome', 100);
+            $table->string('sobrenome', 100);
+            $table->date('data_nascimento');
+            $table->string('endereco', 100)->nullable(); 
+            $table->string('email', 100)->unique();
             $table->timestamps();
         });
     }
